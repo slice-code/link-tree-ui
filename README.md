@@ -28,14 +28,19 @@ A powerful, no-code Linktree alternative UI component built with vanilla JavaScr
 
 1. **Copy the files to your project:**
    ```bash
-   cp linktree-ui/linktree-ui.js your-project/
+   cp el.js your-project/
+   cp linktree-ui/linktree-ui.js your-project/linktree-ui/
    ```
 
 2. **Include in your HTML:**
    ```html
    <div id="app"></div>
    <script type="module">
-     import createLinktreeUI from './linktree-ui.js';
+     // Import el.js first (dependency)
+     import './el.js';
+     
+     // Then import Linktree UI
+     import createLinktreeUI from './linktree-ui/linktree-ui.js';
      
      const config = {
        name: 'Your Name',

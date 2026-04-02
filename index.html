@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Three</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .highlight { background-color: #fbbf24 !important; }
+        #output { white-space: pre-wrap; }
+    </style>
+</head>
+
+<body class="bg-slate-900 min-h-screen">
+    <div id="app"></div>
+    <script type="module">
+        import './el.js';
+        import createLinktreeUI, { themes } from './linktree-ui/linktree-ui.js';
+
+        // Sample data - Hydra Juice inspired
+        const linktreeConfig = {
+            name: 'Hydra Juice',
+            bio: 'Your daily dose of vitamin C',
+            // Avatar can be:
+            // 1. Image URL: 'https://...' or 'path/to/image.jpg'
+            // 2. Text: 'HJ' (will display as text avatar with accent color background)
+            avatar: 'HJ',  // Change to image URL if you want image avatar
+            themeName: 'gradient',  // Use built-in theme: 'hydra', 'dark', 'neon', 'ocean', 'gradient'
+            
+            // NEW: Google Fonts support
+            googleFonts: ['Comic+Neue:400;700'],  // Comic-style font
+            fontFamily: "'Comic Neue', cursive",  // Global font
+            nameFont: "'Comic Neue', cursive",  // Font for name/title
+            bioFont: "'Comic Neue', cursive",  // Font for bio
+            linkFont: "'Comic Neue', cursive",  // Default font for links
+            
+            // Example 1: Custom gradient theme
+            // theme: {
+            //   backgroundGradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            //   textColor: '#ffffff',
+            //   bioColor: '#e8e8f0',
+            //   buttonBg: 'rgba(255, 255, 255, 0.2)',
+            //   buttonText: '#ffffff',
+            //   buttonHoverBg: 'rgba(255, 255, 255, 0.3)',
+            //   accentColor: '#ff6b6b',
+            //   fontFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif'
+            // },
+
+            // Example 2: Background image with overlay
+            // theme: {
+            //   backgroundImage: 'https://images.unsplash.com/photo-1557672172-298e090d0f80?w=1200&h=800&fit=crop',
+            //   backgroundOverlay: 'rgba(0, 0, 0, 0.5)',
+            //   textColor: '#ffffff',
+            //   bioColor: '#e8e8e8',
+            //   buttonBg: 'rgba(255, 255, 255, 0.2)',
+            //   buttonText: '#ffffff',
+            //   buttonHoverBg: 'rgba(255, 255, 255, 0.3)',
+            //   accentColor: '#ff6b6b',
+            //   fontFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif'
+            // },
+
+            links: [
+                // Individual links with custom styles
+                // {
+                //     title: 'Our drinks',
+                //     url: 'https://example.com/drinks',
+                //     icon: null,
+                //     // Customization options:
+                //     bgColor: '#ff6b6b',           // Button background
+                //     textColor: '#ffffff',         // Button text color
+                //     borderRadius: '12px',         // Rounded corners
+                //     border: '2px solid #ff0000',  // Border style
+                //     boxShadow: '0 4px 15px rgba(0,0,0,0.3)',  // Shadow
+                //     hoverBgColor: '#ff5252',      // Hover background
+                //     hoverBoxShadow: '0 6px 20px rgba(0,0,0,0.4)',  // Hover shadow
+                //     hoverTransform: 'scale(1.05)'  // Hover transform
+                // }
+            ],
+            
+            // Grouped links feature
+            groups: [
+                {
+                    title: 'Main Links',
+                    links: [
+                        {
+                            title: 'Our drinks',
+                            url: 'https://example.com/drinks',
+                            icon: null
+                        },
+                        {
+                            title: 'Find us',
+                            url: 'https://example.com/locations',
+                            icon: null,
+                            // Example custom styles:
+                            bgColor: '#4CAF50',
+                            textColor: '#ffffff',
+                            borderRadius: '12px',
+                            border: '2px solid #2E7D32',
+                            boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
+                            hoverBgColor: '#45a049',
+                            hoverBoxShadow: '0 6px 20px rgba(0,0,0,0.3)',
+                            fontFamily: "'Playfair Display', serif"  // Custom font for this link
+                        }
+                    ]
+                },
+                {
+                    title: 'More Info',
+                    links: [
+                        {
+                            title: 'Wellbeings',
+                            url: 'https://example.com/wellness',
+                            icon: null
+                        },
+                        {
+                            title: 'Our latest Podcast',
+                            url: 'https://example.com/podcast',
+                            icon: null
+                        }
+                    ]
+                }
+            ],
+
+            // NEW: Video embed feature
+            videos: [
+                {
+                    title: 'Check out our latest video',
+                    youtube_id: 'dQw4w9WgXcQ'  // Replace with your YouTube video ID
+                    // OR use embed_url for custom embed URL:
+                    // embed_url: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                }
+            ],
+
+            // NEW: Custom images feature
+            images: [
+                {
+                    title: 'Our Gallery',
+                    src: 'https://images.unsplash.com/photo-1499888674260-23adcad308f7?w=500&h=300&fit=crop',
+                    alt: 'Gallery image',
+                    width: '100%',
+                    height: '250px',
+                    borderRadius: '12px',
+                    border: '2px solid rgba(255,255,255,0.2)',
+                    boxShadow: '0 4px 15px rgba(0,0,0,0.3)',
+                    objectFit: 'cover',
+                    url: 'https://example.com/gallery'  // Optional: make image clickable
+                }
+                // More image examples:
+                // {
+                //     src: 'https://...',
+                //     alt: 'Product image',
+                //     width: '100%',
+                //     height: '200px',
+                //     borderRadius: '8px',  // can be '0px', '8px', '12px', '20px', '50%' (circle)
+                //     border: '3px solid #ff6b6b',
+                //     boxShadow: '0 4px 15px rgba(0,0,0,0.3)'
+                // }
+            ],
+
+            // Donation buttons (Ko-fi, Buy Me a Coffee, Patreon, etc)
+            donations: [
+                {
+                    title: '☕ Buy me a coffee on Ko-fi',
+                    url: 'https://ko-fi.com/user_id',  // Replace with your Ko-fi URL
+                    icon: 'fas fa-mug-hot',
+                    buttonColor: '#FF5E78',  // Ko-fi pink
+                    buttonText: '#ffffff'
+                },
+                {
+                    title: '💖 Support on Buy Me a Coffee',
+                    url: 'https://www.buymeacoffee.com/your_name',
+                    icon: 'fas fa-heart',
+                    buttonColor: '#FFDD00',
+                    buttonText: '#000000'
+                }
+                // Add more donation platforms:
+                // {
+                //     title: '🎉 Patreon',
+                //     url: 'https://patreon.com/your_name',
+                //     icon: 'fab fa-patreon',
+                //     buttonColor: '#FF424F',
+                //     buttonText: '#ffffff'
+                // }
+            ],
+
+            socialLinks: [
+                {
+                    icon: 'fab fa-tiktok',
+                    url: 'https://tiktok.com'
+                },
+                {
+                    icon: 'fab fa-youtube',
+                    url: 'https://youtube.com'
+                },
+                {
+                    icon: 'fab fa-x-twitter',
+                    url: 'https://twitter.com'
+                },
+                {
+                    icon: 'fab fa-instagram',
+                    url: 'https://instagram.com'
+                }
+            ],
+            bottomImage: 'https://images.unsplash.com/photo-1599599810694-c3e73c2e8e6e?w=500&h=300&fit=crop'
+        };
+
+        // Create and mount the UI
+        const linktree = createLinktreeUI(linktreeConfig);
+        document.getElementById('app').appendChild(linktree.get());
+
+        // Available themes: hydra, dark, neon, ocean, gradient
+        // Available via: themes.hydra, themes.dark, themes.neon, themes.ocean, themes.gradient
+        
+        // Theme properties:
+        // - backgroundColor: solid color background
+        // - backgroundGradient: CSS gradient (linear-gradient, radial-gradient, etc)
+        // - backgroundImage: URL to background image
+        // - backgroundOverlay: overlay color for background image (use with backgroundImage)
+        // - textColor, bioColor, buttonBg, buttonText, buttonHoverBg, accentColor
+        // - fontFamily
+
+        // Avatar Configuration:
+        // avatar can be either an image URL or text:
+        // 1. Image: 'https://example.com/avatar.jpg' or 'path/to/image.jpg'
+        //    - Will display as circular image
+        // 2. Text: 'HJ' or 'AB'
+        //    - Will display as text avatar with accent color background
+        //    - Best for initials (1-3 characters recommended)
+
+        // Google Fonts Support (NEW!):
+        // googleFonts: ['Font+Name:400;600;700', 'Another+Font:700']  // Fonts to load
+        // fontFamily: "'Font Name', sans-serif"  // Global font (all elements)
+        // nameFont: "'Font Name', serif"         // Font for name/title only
+        // bioFont: "'Font Name', sans-serif"     // Font for bio only
+        // linkFont: "'Font Name', sans-serif"    // Default font for all links
+        // 
+        // Per-link fontFamily:
+        // links: [{ title: '...', fontFamily: "'Custom Font', serif" }]
+        //
+        // Popular Google Fonts to try:
+        // - 'Poppins:400;600;700' (modern, friendly)
+        // - 'Playfair+Display:700' (elegant, bold)
+        // - 'Roboto:400;500;700' (clean, professional)
+        // - 'Inter:400;600;700' (minimal, modern)
+        // - 'Outfit:500;600;700' (geometric, contemporary)
+        // 
+        // Note: Replace spaces with '+' and add weights as shown above
+        // Format: 'FontName:weights' (e.g., 'Poppins:400;600;700')
+
+        // Features:
+        // 1. Grouped Links - organize links into sections
+        //    groups: [{ title: 'Section Name', links: [...] }, ...]
+        //
+        // 2. Video Embed - embed YouTube or custom videos
+        //    videos: [{ title: 'Video Title', youtube_id: 'VIDEO_ID' }, ...]
+        //    OR: { title: 'Video Title', embed_url: 'https://...' }
+        //
+        // 3. Custom Images - add gallery or showcase images
+        //    images: [{
+        //      title: 'Image Title (optional)',
+        //      src: 'https://example.com/image.jpg',
+        //      alt: 'Image description',
+        //      width: '100%',                              // e.g., '100%', '300px'
+        //      height: '250px',                            // e.g., '250px', 'auto'
+        //      borderRadius: '12px',                       // Rounded corners (e.g., '0px', '8px', '50%')
+        //      border: '2px solid rgba(255,255,255,0.2)',  // Border style
+        //      boxShadow: '0 4px 15px rgba(0,0,0,0.3)',    // Shadow effect
+        //      objectFit: 'cover',                         // Image fitting (cover, contain, fill, etc)
+        //      url: 'https://link'                         // Optional: make image clickable
+        //    }, ...]
+        //
+        // 4. Donation Buttons - Ko-fi, Buy Me a Coffee, Patreon, etc
+        //    donations: [{
+        //      title: 'Button text',
+        //      url: 'https://link_to_donation_page',
+        //      icon: 'fas fa-icon',  // FontAwesome icon
+        //      buttonColor: '#FF5E78',  // Custom button color
+        //      buttonText: '#ffffff'  // Text color
+        //    }, ...]
+        //
+        // 5. Link Customization - custom styles for each link
+        //    Each link can have custom properties:
+        //    {
+        //      title: 'Link Title',
+        //      url: 'https://example.com',
+        //      bgColor: '#ff6b6b',                    // Background color
+        //      textColor: '#ffffff',                  // Text color
+        //      borderRadius: '12px',                  // Rounded corners (e.g., '12px', '24px', '50px')
+        //      border: '2px solid #ff0000',           // Border (e.g., '1px solid #000', '3px dashed #fff')
+        //      boxShadow: '0 4px 15px rgba(0,0,0,0.3)',  // Shadow effect
+        //      hoverBgColor: '#ff5252',               // Hover background color
+        //      hoverBoxShadow: '0 6px 20px rgba(0,0,0,0.4)',  // Shadow on hover
+        //      hoverTransform: 'scale(1.05)',         // Transform on hover
+        //      fontFamily: "'Custom Font', serif"     // Custom font for this link (NEW!)
+        //    }
+        
+        console.log('Available themes:', themes);
+    </script>
+</body>
+
+</html>

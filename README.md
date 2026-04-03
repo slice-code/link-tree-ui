@@ -6,6 +6,12 @@ A powerful, no-code Linktree alternative UI component built with vanilla JavaScr
 
 ---
 
+## 👀 Preview
+
+![Linktree UI Preview](./image/view.png)
+
+---
+
 ## ✨ Features
 
 - 🎨 **5 Built-in Themes** - Hydra, Dark, Neon, Ocean, Gradient (+ custom themes)
